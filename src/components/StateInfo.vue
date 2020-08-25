@@ -5,7 +5,8 @@
     <div v-if="stateRank !== ''" class="response-rate-rank">
       <h3>Rank:</h3>
       <p>
-        <span>{{stateRank}}</span> out of 52 <br> (including Puerto Rico and Washington D.C.)
+        <span>{{stateRank}}</span> out of 52
+        <br />(including Puerto Rico and Washington D.C.)
       </p>
     </div>
   </div>
@@ -38,10 +39,8 @@ export default {
     }
   },
   watch: {
-    allStates() {
-      this.sortStates();
-    },
     currentState() {
+      this.sortStates();
       this.findRank();
     }
   }

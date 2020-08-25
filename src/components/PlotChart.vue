@@ -30,7 +30,8 @@ export default {
         .range([0, this.width])
         .domain(this.allStates[0].map(d => d[0]))
         .padding(0.5);
-    },
+    }
+  },
   methods: {
     drawPlotChart() {
       d3.select(".plot-chart-wrapper svg")
