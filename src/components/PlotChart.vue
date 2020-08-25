@@ -14,25 +14,24 @@ export default {
       width: 900,
       height: 300,
       margin: { top: 50, bottom: 50, left: 50, right: 50 },
-      xScale: "",
-      yScale: "",
       colors: ["#69b8e1"]
     };
   },
-  methods: {
-    createYScale() {
-      this.yScale = d3
+  computed: {
+    yScale() {
+      return d3
         .scaleLinear()
         .range([0, this.height])
         .domain([80, 20]);
     },
-    createXScale() {
-      this.xScale = d3
+    xScale() {
+      return d3
         .scaleBand()
         .range([0, this.width])
         .domain(this.allStates[0].map(d => d[0]))
         .padding(0.5);
     },
+  methods: {
     drawPlotChart() {
       d3.select(".plot-chart-wrapper svg")
         .attr("width", this.width + this.margin.left)
@@ -181,8 +180,6 @@ export default {
   },
   watch: {
     allStates() {
-      this.createYScale();
-      this.createXScale();
       this.drawLines();
       this.drawPlotChart();
       this.drawDots();
