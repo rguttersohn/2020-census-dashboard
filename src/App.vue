@@ -10,7 +10,7 @@
       <BarChart :currentState="currentState" :currentState_2010="currentState_2010" />
       <PieChart :currentState="currentState" />
     </div>
-    <PlotChart :allStates="allStates" />
+    <PlotChart :currentState="currentState" :allStates="allStates" />
   </div>
 </template>
 

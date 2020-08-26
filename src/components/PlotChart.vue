@@ -8,7 +8,7 @@
 <script>
 import * as d3 from "d3";
 export default {
-  props: ["allStates"],
+  props: ["allStates", "currentState"],
   data() {
     return {
       width: 900,
@@ -93,13 +93,14 @@ export default {
         })
         .attr("fill", this.colors[0])
         .attr("stroke-width", d => {
-          if (d[4] >= 69 || d[4] <= 55) {
+          if (d[4] >= 70 || d[4] <= 55) {
             return 1;
           } else {
             return 0;
           }
         })
-        .attr("stroke", "black");
+        .attr("stroke", "black")
+        .attr("data-state", d => d[0]);
     },
     addLabels() {
       const vm = this;
@@ -177,6 +178,10 @@ export default {
         .attr("y1", vm.height - 3)
         .attr("y2", d => vm.yScale(d[4]))
         .attr("stroke", "lightgray");
+    },
+    highlightCurrentState() {
+     d3.select(`.dots circle[data-state='${this.currentState[0].NAME}']`)
+      .attr('fill', 'red')
     }
   },
   watch: {
@@ -186,6 +191,11 @@ export default {
       this.drawDots();
       this.addLabels();
       this.addStateLabels();
+    },
+    currentState() {
+      if (this.currentState.length > 0) {
+        this.highlightCurrentState();
+      }
     }
   }
 };
