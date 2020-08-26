@@ -1,8 +1,10 @@
 <template>
   <div class="pie-chart-wrapper">
-    <h3
-      v-if="currentState[0] !== undefined"
-    >Internet responses vs traditional responses in {{currentState[0].NAME}}</h3>
+    <h3 v-if="currentState[0] !== undefined">
+      <span :style="{color:colors[0]}">Internet responses</span> and
+      <span :style="{color:colors[1]}">traditional responses</span>
+      in {{currentState[0].NAME}}
+    </h3>
     <svg />
     <p v-if="currentState[0] !== undefined" class="date-note">As of {{date}}</p>
   </div>
@@ -13,11 +15,11 @@ import * as d3 from "d3";
 export default {
   props: {
     currentState: Array,
-    date:String
+    date: String
   },
   data() {
     return {
-      colors: ["#0099cd", "#60bcda",'white'],
+      colors: ["#0099cd", "#60bcda", "white"],
       height: 250,
       width: 250,
       margin: 25,
@@ -95,18 +97,17 @@ export default {
         .text(d => formatDecimal(d.data) + "%")
         .attr("x", d => thisArc.centroid(d)[0])
         .attr("y", d => thisArc.centroid(d)[1])
-        .style('fill', this.colors[2])
-        .style('font-weight', 'bold')
-        .attr('opacity',0)
+        .style("fill", this.colors[2])
+        .style("font-weight", "bold")
+        .attr("opacity", 0)
         .transition()
         .duration(1000)
-        .attr('opacity',1)
+        .attr("opacity", 1)
         .delay(100);
     },
     removeLabel() {
       d3.select(".pie-chart-labels").remove();
-    },
-  
+    }
   },
   watch: {
     currentState() {

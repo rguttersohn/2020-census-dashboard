@@ -1,8 +1,8 @@
 <template>
   <div class="bar-chart-wrapper">
     <h3
-      v-if="currentState[0] !== undefined"
-    >2020 response rate vs 2010 response rate in {{currentState[0].NAME}}</h3>
+      v-if="currentState[0] !== undefined">
+      <span :style="{color:colors[0]}">2020 response rate</span> vs <span :style="{color:colors[1]}">2010 response rate</span> in {{currentState[0].NAME}}</h3>
     <svg />
     <p class="date-note" v-if="currentState[0] !== undefined">As of {{date}}</p>
   </div>
@@ -68,6 +68,7 @@ export default {
             .axisRight(this.yScale)
             .tickSize([0])
             .ticks(8)
+            .tickFormat(d => d + "%")
         )
         .attr("transform", `translate(0,${this.margin.bottom - 20})`);
       d3.select(".y-axis .domain").style("visibility", "hidden");
@@ -90,9 +91,9 @@ export default {
         .duration(1000)
         .attr("height", d => this.height - this.yScale(d.CRRALL))
         .attr("y", d => {
-          return this.yScale(d.CRRALL)
+          return this.yScale(d.CRRALL);
         })
-        .delay((d,i)=>i*100);
+        .delay((d, i) => i * 100);
     },
     createChartLabels() {
       d3.select(".bar-chart-wrapper svg")

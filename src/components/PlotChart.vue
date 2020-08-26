@@ -66,6 +66,7 @@ export default {
             .axisRight(this.yScale)
             .tickSize([0])
             .ticks(8)
+            .tickFormat(d=>d+"%")
         )
         .attr("transform", `translate(0,${this.margin.bottom - 20})`);
       d3.select(".y-axis .domain").style("visibility", "hidden");
