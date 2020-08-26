@@ -73,7 +73,6 @@ export default {
         .attr("transform", `translate(0,${this.margin.bottom - 20})`);
       d3.select(".y-axis .domain").style("visibility", "hidden");
     },
-
     drawDots() {
       const vm = this;
       d3.select(".plot-chart-wrapper svg")
@@ -219,9 +218,11 @@ export default {
   width: 1000px;
   margin: 5% auto;
 }
-
-.dots circle:hover{
- stroke:#0099cd;
- cursor:pointer;
+.dots circle:hover {
+  stroke: #0099cd;
+  cursor: pointer;
+}
+.labels text, .state-labels text{
+  pointer-events: none;
 }
 </style>

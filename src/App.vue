@@ -15,7 +15,7 @@
       <PieChart :date="dateRetrieved" :currentState="currentState" />
     </div>
     <PlotChart
-      @dot-event="dotClicked"
+      @dot-event="stateClicked"
       :date="dateRetrieved"
       :currentState="currentState"
       :allStates="allStates"
@@ -124,9 +124,6 @@ export default {
     stateClicked(val) {
       this.stateKey = val.dataset.key;
     },
-    dotClicked(val) {
-      this.stateKey = val.dataset.key;
-    }
   },
   created() {
     this.stateNames();
