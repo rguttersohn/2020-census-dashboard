@@ -1,6 +1,6 @@
 <template>
   <div class="plot-chart-wrapper">
-    <h2>How {{currentState[0].NAME}} Compares to All States, Washington D.C., and Puerto Rico</h2>
+    <h2 v-if="currentState.length > 0">How {{currentState[0].NAME}} Compares to All States, Washington D.C., and Puerto Rico</h2>
     <p class="date-note">As of {{date}}</p>
     <svg />
   </div>
