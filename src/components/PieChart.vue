@@ -1,6 +1,8 @@
 <template>
   <div class="pie-chart-wrapper">
-    <h3 v-if="currentState[0] !== undefined">Internet responses vs traditional responses in {{currentState[0].NAME}}</h3>
+    <h3
+      v-if="currentState[0] !== undefined"
+    >Internet responses vs traditional responses in {{currentState[0].NAME}}</h3>
     <svg />
   </div>
 </template>
@@ -52,7 +54,8 @@ export default {
         .attr("class", "pie-chart")
         .attr(
           "transform",
-          `translate(${this.width / 2 + this.margin},${this.height / 2 + this.margin})`
+          `translate(${this.width / 2 + this.margin},${this.height / 2 +
+            this.margin})`
         );
     },
     drawPie() {
@@ -62,10 +65,14 @@ export default {
         .enter()
         .append("path")
         .attr("fill", (d, i) => this.colors[i])
-        .style("stroke", "gray")
+        .style("stroke", "gray");
+    },
+    animatePie() {
+      d3.selectAll(".pie-chart path")
+        .transition()
+        .duration(1000)
         .attr("d", this.arc);
     },
-
     pieLabel() {
       let thisArc = this.arc;
       let formatDecimal = d3.format(".1f");
@@ -74,7 +81,8 @@ export default {
         .attr("class", "pie-chart-labels")
         .attr(
           "transform",
-          `translate(${this.width / 2 + this.margin},${this.height / 2 + this.margin})`
+          `translate(${this.width / 2 + this.margin},${this.height / 2 +
+            this.margin})`
         )
         .selectAll("text")
         .data(this.pie)
@@ -84,14 +92,17 @@ export default {
         .attr("text-anchor", "middle")
         .text(d => formatDecimal(d.data) + "%")
         .attr("x", d => thisArc.centroid(d)[0])
-        .attr("y", d => thisArc.centroid(d)[1]);
+        .attr("y", d => thisArc.centroid(d)[1])
+        .attr('opacity',0)
+        .transition()
+        .duration(1000)
+        .attr('opacity',1)
+        .delay(100);
     },
     removeLabel() {
-      d3.selectAll(".pie-chart-labels text").remove();
+      d3.select(".pie-chart-labels").remove();
     },
-    removePie() {
-      d3.selectAll(".pie-chart path").remove();
-    }
+  
   },
   watch: {
     currentState() {
@@ -101,8 +112,8 @@ export default {
       this.createPie();
       this.createArc();
       this.chartFixed();
-      this.removePie();
       this.drawPie();
+      this.animatePie();
       this.removeLabel();
       this.pieLabel();
     }
