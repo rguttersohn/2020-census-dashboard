@@ -116,7 +116,7 @@ export default {
         .append("text")
         .attr("text-anchor", "middle")
         .text(d => {
-          if (d[4] >= 69 || d[4] <= 55) {
+          if (d[4] >= 70 || d[4] <= 55) {
             return d[4] + "%";
           }
         })
@@ -145,7 +145,7 @@ export default {
         .append("text")
         .attr("text-anchor", "middle")
         .text(d => {
-          if (d[4] >= 69 || d[4] <= 55) {
+          if (d[4] >= 70 || d[4] <= 55) {
             return d[0];
           }
         })
