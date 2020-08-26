@@ -13,8 +13,8 @@ export default {
     return {
       width: 900,
       height: 300,
-      margin: { top: 50, bottom: 50, left: 50, right: 50 },
-      colors: ["#69b8e1"]
+      margin: { top: 50, bottom: 50, left: 50, right: 25 },
+      colors: ["lightgray", "#0099cd"]
     };
   },
   computed: {
@@ -35,7 +35,7 @@ export default {
   methods: {
     drawPlotChart() {
       d3.select(".plot-chart-wrapper svg")
-        .attr("width", this.width + this.margin.left)
+        .attr("width", this.width + this.margin.left + this.margin.right)
         .attr("height", this.height + this.margin.bottom + this.margin.top);
 
       //x-axis
@@ -88,18 +88,10 @@ export default {
           const xScale = vm.xScale;
           const yScale = vm.yScale;
           d3.select(this)
-            .attr("cx", xScale(d[0]))
-            .attr("cy", yScale(d[4]));
+            .attr("cx", xScale(d[0]) - vm.xScale.bandwidth()/2)
+            .attr("cy", yScale(d[4]) - vm.xScale.bandwidth()/2);
         })
         .attr("fill", this.colors[0])
-        .attr("stroke-width", d => {
-          if (d[4] >= 70 || d[4] <= 55) {
-            return 1;
-          } else {
-            return 0;
-          }
-        })
-        .attr("stroke", "black")
         .attr("data-state", d => d[0]);
     },
     addLabels() {
@@ -117,7 +109,7 @@ export default {
         .append("text")
         .attr("text-anchor", "middle")
         .text(d => {
-          if (d[4] >= 70 || d[4] <= 55) {
+          if (d[0] === this.currentState[0].NAME) {
             return d[4] + "%";
           }
         })
@@ -129,7 +121,10 @@ export default {
             .attr("x", xScale(d[0]))
             .attr("y", yScale(d[4]));
         })
-        .style("font-size", "12px");
+        .style("font-size", "18px")
+        .style("text-transform", "uppercase")
+        .style("font-weight", "bold")
+        .attr("fill", this.colors[1]);
     },
     addStateLabels() {
       const vm = this;
@@ -146,7 +141,7 @@ export default {
         .append("text")
         .attr("text-anchor", "middle")
         .text(d => {
-          if (d[4] >= 70 || d[4] <= 55) {
+          if (d[0] === this.currentState[0].NAME) {
             return d[0];
           }
         })
@@ -158,7 +153,9 @@ export default {
             .attr("x", xScale(d[0]))
             .attr("y", yScale(d[4]));
         })
-        .style("font-size", "12px");
+        .style("font-size", "18px")
+        .style("font-weight", "bold")
+        .attr("fill", this.colors[1]);
     },
     drawLines() {
       let vm = this;
@@ -173,18 +170,19 @@ export default {
         .data(this.allStates[0])
         .enter()
         .append("line")
-        .attr("x1", d => vm.xScale(d[0]))
-        .attr("x2", d => vm.xScale(d[0]))
+        .attr("x1", d => vm.xScale(d[0]) - vm.xScale.bandwidth()/2)
+        .attr("x2", d => vm.xScale(d[0])- vm.xScale.bandwidth()/2)
         .attr("y1", vm.height - 3)
         .attr("y2", d => vm.yScale(d[4]))
         .attr("stroke", "lightgray");
     },
     highlightCurrentState() {
-      d3.select(".dots circle[fill='red']")
-      .attr('fill', this.colors[0]);
+      d3.select(".dots circle[fill='#0099cd']").attr("fill", this.colors[0]);
+      d3.selectAll(".plot-chart-wrapper svg text[fill='#0099cd']").remove();
 
-     d3.select(`.plot-chart-wrapper svg *[data-state='${this.currentState[0].NAME}']`)
-      .attr('fill', 'red')
+      d3.select(
+        `.plot-chart-wrapper svg *[data-state='${this.currentState[0].NAME}']`
+      ).attr("fill", "#0099cd");
     }
   },
   watch: {
@@ -192,12 +190,12 @@ export default {
       this.drawLines();
       this.drawPlotChart();
       this.drawDots();
-      this.addLabels();
-      this.addStateLabels();
     },
     currentState() {
       if (this.currentState.length > 0) {
         this.highlightCurrentState();
+        this.addLabels();
+        this.addStateLabels();
       }
     }
   }
