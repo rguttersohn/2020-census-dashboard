@@ -180,7 +180,10 @@ export default {
         .attr("stroke", "lightgray");
     },
     highlightCurrentState() {
-     d3.select(`.dots circle[data-state='${this.currentState[0].NAME}']`)
+      d3.select(".dots circle[fill='red']")
+      .attr('fill', this.colors[0]);
+
+     d3.select(`.plot-chart-wrapper svg *[data-state='${this.currentState[0].NAME}']`)
       .attr('fill', 'red')
     }
   },
