@@ -4,6 +4,7 @@
       v-if="currentState[0] !== undefined"
     >Internet responses vs traditional responses in {{currentState[0].NAME}}</h3>
     <svg />
+    <p v-if="currentState[0] !== undefined" class="date-note">As of {{date}}</p>
   </div>
 </template>
 
@@ -11,11 +12,12 @@
 import * as d3 from "d3";
 export default {
   props: {
-    currentState: Array
+    currentState: Array,
+    date:String
   },
   data() {
     return {
-      colors: ["#0099cd", "#60bcda"],
+      colors: ["#0099cd", "#60bcda",'white'],
       height: 250,
       width: 250,
       margin: 25,
@@ -41,10 +43,10 @@ export default {
     createArc() {
       this.arc = d3
         .arc()
-        .innerRadius(50)
+        .innerRadius(0)
         .outerRadius(this.width / 2)
         .padAngle(0.05)
-        .padRadius(50);
+        .padRadius(1);
     },
     chartFixed() {
       d3.select(".pie-chart-wrapper svg")
@@ -93,6 +95,8 @@ export default {
         .text(d => formatDecimal(d.data) + "%")
         .attr("x", d => thisArc.centroid(d)[0])
         .attr("y", d => thisArc.centroid(d)[1])
+        .style('fill', this.colors[2])
+        .style('font-weight', 'bold')
         .attr('opacity',0)
         .transition()
         .duration(1000)

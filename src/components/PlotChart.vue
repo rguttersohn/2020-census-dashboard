@@ -1,6 +1,7 @@
 <template>
   <div class="plot-chart-wrapper">
-    <h2>2020 Census Response Rates In Every State, Washington D.C., and Puerto Rico</h2>
+    <h2>How {{currentState[0].NAME}} Compares to All States, Washington D.C., and Puerto Rico</h2>
+    <p class="date-note">As of {{date}}</p>
     <svg />
   </div>
 </template>
@@ -8,7 +9,7 @@
 <script>
 import * as d3 from "d3";
 export default {
-  props: ["allStates", "currentState"],
+  props: ["allStates", "currentState", "date"],
   data() {
     return {
       width: 900,

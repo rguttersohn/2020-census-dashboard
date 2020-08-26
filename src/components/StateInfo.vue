@@ -9,13 +9,15 @@
         <br />(including Puerto Rico and Washington D.C.)
       </p>
     </div>
+    <p class="date-note" v-if="currentState[0] !== undefined">As of {{date}}</p>
   </div>
 </template>
 <script>
 export default {
   props: {
     currentState: Array,
-    allStates: Array
+    allStates: Array,
+    date: String
   },
   data() {
     return {

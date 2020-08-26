@@ -6,11 +6,11 @@
       <h2>{{infoLoading}}</h2>
     </div>
     <div class="dashboard-wrapper">
-      <StateInfo :currentState="currentState" :allStates="allStates" />
-      <BarChart :currentState="currentState" :currentState_2010="currentState_2010" />
-      <PieChart :currentState="currentState" />
+      <StateInfo :date="dateRetrieved" :currentState="currentState" :allStates="allStates" />
+      <BarChart :date="dateRetrieved" :currentState="currentState" :currentState_2010="currentState_2010" />
+      <PieChart :date="dateRetrieved" :currentState="currentState" />
     </div>
-    <PlotChart :currentState="currentState" :allStates="allStates" />
+    <PlotChart :date="dateRetrieved" :currentState="currentState" :allStates="allStates" />
   </div>
 </template>
 
@@ -38,7 +38,8 @@ export default {
       stateKey: "",
       infoLoading: "Click State Button to see response rate data",
       loadingStates: "",
-      allStates: []
+      allStates: [],
+      dateRetrieved:""
     };
   },
   methods: {
@@ -54,6 +55,8 @@ export default {
         .then(([stateData]) => {
           //here we take the statedata and push it to an array to be passed down to child components
           this.allStates.push(stateData);
+          [this.dateRetrieved]= [stateData[1][3]]
+
 
           //here we break up the data to only show state and its id
           this.loadingStates = "";
@@ -155,5 +158,10 @@ export default {
 
 .loading-container {
   min-height: 50px;
+}
+
+.date-note{
+  font-size:90%;
+  font-style: italic;
 }
 </style>

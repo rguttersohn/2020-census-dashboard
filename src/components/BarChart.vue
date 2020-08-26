@@ -4,6 +4,7 @@
       v-if="currentState[0] !== undefined"
     >2020 response rate vs 2010 response rate in {{currentState[0].NAME}}</h3>
     <svg />
+    <p class="date-note" v-if="currentState[0] !== undefined">As of {{date}}</p>
   </div>
 </template>
 
@@ -12,7 +13,8 @@ import * as d3 from "d3";
 export default {
   props: {
     currentState: Array,
-    currentState_2010: Array
+    currentState_2010: Array,
+    date: String
   },
   data() {
     return {
