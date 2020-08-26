@@ -1,6 +1,8 @@
 <template>
   <div class="bar-chart-wrapper">
-    <h3 v-if="currentState[0] !== undefined">2020 response rate vs 2010 response rate in {{currentState[0].NAME}}</h3>
+    <h3
+      v-if="currentState[0] !== undefined"
+    >2020 response rate vs 2010 response rate in {{currentState[0].NAME}}</h3>
     <svg />
   </div>
 </template>
@@ -68,7 +70,7 @@ export default {
         .attr("transform", `translate(0,${this.margin.bottom - 20})`);
       d3.select(".y-axis .domain").style("visibility", "hidden");
 
-      //initial set up for bars
+      // bars
       d3.select(".bar-chart-wrapper svg")
         .append("g")
         .attr("class", "bars")
@@ -76,14 +78,19 @@ export default {
         .data(this.mergedResponseRate)
         .enter()
         .append("rect")
-        .attr("height", d => this.height - this.yScale(d.CRRALL))
         .attr("width", this.xScale.bandwidth())
         .attr("x", d => this.xScale(d.year))
-        .attr("y", d => {
-          return this.yScale(d.CRRALL);
-        })
         .attr("transform", `translate(0,${this.margin.bottom - 20})`)
-        .attr("fill", (d, i) => this.colors[i]);
+        .attr("fill", (d, i) => this.colors[i])
+        .attr("height", this.height - this.yScale(0)) // always equal to 0
+        .attr("y", this.yScale(0))
+        .transition()
+        .duration(1000)
+        .attr("height", d => this.height - this.yScale(d.CRRALL))
+        .attr("y", d => {
+          return this.yScale(d.CRRALL)
+        })
+        .delay((d,i)=>i*100);
     },
     createChartLabels() {
       d3.select(".bar-chart-wrapper svg")
