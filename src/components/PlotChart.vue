@@ -1,6 +1,8 @@
 <template>
   <div class="plot-chart-wrapper">
-    <h2 v-if="currentState.length > 0">How {{currentState[0].NAME}} Compares to All States, Washington D.C., and Puerto Rico</h2>
+    <h2
+      v-if="currentState.length > 0"
+    >How {{currentState[0].NAME}} Compares to All States, Washington D.C., and Puerto Rico</h2>
     <p class="date-note">As of {{date}}</p>
     <svg />
   </div>
@@ -66,7 +68,7 @@ export default {
             .axisRight(this.yScale)
             .tickSize([0])
             .ticks(8)
-            .tickFormat(d=>d+"%")
+            .tickFormat(d => d + "%")
         )
         .attr("transform", `translate(0,${this.margin.bottom - 20})`);
       d3.select(".y-axis .domain").style("visibility", "hidden");
@@ -90,11 +92,13 @@ export default {
           const xScale = vm.xScale;
           const yScale = vm.yScale;
           d3.select(this)
-            .attr("cx", xScale(d[0]) - vm.xScale.bandwidth()/2)
-            .attr("cy", yScale(d[4]) - vm.xScale.bandwidth()/2);
+            .attr("cx", xScale(d[0]) - vm.xScale.bandwidth() / 2)
+            .attr("cy", yScale(d[4]) - vm.xScale.bandwidth() / 2);
         })
         .attr("fill", this.colors[0])
-        .attr("data-state", d => d[0]);
+        .attr("data-state", d => d[0])
+        .attr("data-key", d => d[5])
+        .on("click", this.handleDotClick);
     },
     addLabels() {
       const vm = this;
@@ -172,8 +176,8 @@ export default {
         .data(this.allStates[0])
         .enter()
         .append("line")
-        .attr("x1", d => vm.xScale(d[0]) - vm.xScale.bandwidth()/2)
-        .attr("x2", d => vm.xScale(d[0])- vm.xScale.bandwidth()/2)
+        .attr("x1", d => vm.xScale(d[0]) - vm.xScale.bandwidth() / 2)
+        .attr("x2", d => vm.xScale(d[0]) - vm.xScale.bandwidth() / 2)
         .attr("y1", vm.height - 3)
         .attr("y2", d => vm.yScale(d[4]))
         .attr("stroke", "lightgray");
@@ -185,6 +189,9 @@ export default {
       d3.select(
         `.plot-chart-wrapper svg *[data-state='${this.currentState[0].NAME}']`
       ).attr("fill", "#0099cd");
+    },
+    handleDotClick() {
+      this.$emit("dot-event", d3.event.target);
     }
   },
   watch: {
@@ -204,12 +211,17 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .plot-chart-wrapper {
   border: 1px solid gainsboro;
   border-radius: 5px;
   box-shadow: 5px 5px 5px rgba(211, 211, 211, 0.378);
   width: 1000px;
   margin: 5% auto;
+}
+
+.dots circle:hover{
+ stroke:#0099cd;
+ cursor:pointer;
 }
 </style>

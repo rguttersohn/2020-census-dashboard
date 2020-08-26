@@ -7,10 +7,19 @@
     </div>
     <div class="dashboard-wrapper">
       <StateInfo :date="dateRetrieved" :currentState="currentState" :allStates="allStates" />
-      <BarChart :date="dateRetrieved" :currentState="currentState" :currentState_2010="currentState_2010" />
+      <BarChart
+        :date="dateRetrieved"
+        :currentState="currentState"
+        :currentState_2010="currentState_2010"
+      />
       <PieChart :date="dateRetrieved" :currentState="currentState" />
     </div>
-    <PlotChart :date="dateRetrieved" :currentState="currentState" :allStates="allStates" />
+    <PlotChart
+      @dot-event="dotClicked"
+      :date="dateRetrieved"
+      :currentState="currentState"
+      :allStates="allStates"
+    />
   </div>
 </template>
 
@@ -39,7 +48,7 @@ export default {
       infoLoading: "Click State Button to see response rate data",
       loadingStates: "",
       allStates: [],
-      dateRetrieved:""
+      dateRetrieved: ""
     };
   },
   methods: {
@@ -55,8 +64,7 @@ export default {
         .then(([stateData]) => {
           //here we take the statedata and push it to an array to be passed down to child components
           this.allStates.push(stateData);
-          [this.dateRetrieved]= [stateData[1][3]]
-
+          [this.dateRetrieved] = [stateData[1][3]];
 
           //here we break up the data to only show state and its id
           this.loadingStates = "";
@@ -115,6 +123,9 @@ export default {
     },
     stateClicked(val) {
       this.stateKey = val.dataset.key;
+    },
+    dotClicked(val) {
+      this.stateKey = val.dataset.key;
     }
   },
   created() {
@@ -160,8 +171,8 @@ export default {
   min-height: 50px;
 }
 
-.date-note{
-  font-size:90%;
+.date-note {
+  font-size: 90%;
   font-style: italic;
 }
 </style>
