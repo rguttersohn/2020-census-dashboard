@@ -9,6 +9,9 @@ import * as topojson from "topojson-client";
 import * as d3 from "d3";
 
 export default {
+  props: {
+    currentState: Array
+  },
   data() {
     return {
       usMap: "",
@@ -240,15 +243,18 @@ export default {
         .data(this.usMap.features)
         .attr("data-state", d => d.properties.NAME)
         .attr("data-key", d => d.properties.GEOID)
-        .on('click',this.handleStateClick);
+        .on("click", this.handleStateClick);
     },
-    handleStateClick(){
-      let active = document.querySelector('.map-wrapper svg .active')
-      if (active){
-        active.classList.remove('active')
+    handleStateClick() {
+      this.$emit("button-event", d3.event.target);
+    },
+    addHighlight() {
+      let active = document.querySelector(".map-wrapper svg .active");
+      if (active) {
+        active.classList.remove("active");
       }
-      this.$emit('button-event',d3.event.target)
-      d3.event.target.classList.add('active')
+      let highlightedState = document.querySelector(`.map-wrapper svg path[data-state='${this.currentState[0].NAME}']`)
+      highlightedState.classList.add('active')
     }
   },
   created() {
@@ -258,15 +264,18 @@ export default {
     usMap() {
       this.createMap();
       this.addStateNames();
+    },
+    currentState(){
+      this.addHighlight()
     }
   }
 };
 </script>
 
 <style>
-.map-wrapper svg{
-  margin:auto;
-  display:block;
+.map-wrapper svg {
+  margin: auto;
+  display: block;
 }
 .map-wrapper svg path {
   fill: #0099cd;

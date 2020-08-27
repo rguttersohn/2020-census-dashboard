@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h2 v-if="loadingStates !==''">{{loadingStates}}</h2>
-    <Map @button-event="stateClicked" />
+    <Map @button-event="stateClicked" :currentState="currentState" />
     <div class="loading-container">
       <h2>{{infoLoading}}</h2>
     </div>
