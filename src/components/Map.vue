@@ -283,6 +283,10 @@ export default {
   cursor: pointer;
 }
 
+.map-wrapper svg path:hover {
+  fill: #de425b;
+}
+
 .map-wrapper svg .active {
   fill: #de425b;
 }
