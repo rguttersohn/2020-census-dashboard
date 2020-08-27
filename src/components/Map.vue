@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       usMap: "",
-      width: 1000,
+      width: 800,
       height: 500,
       margin: { left: 50, right: 50, top: 50, bottom: 100 },
       colors: [
@@ -239,7 +239,16 @@ export default {
       d3.selectAll(".state-paths path")
         .data(this.usMap.features)
         .attr("data-state", d => d.properties.NAME)
-        .attr("data-key", d => d.properties.GEOID);
+        .attr("data-key", d => d.properties.GEOID)
+        .on('click',this.handleStateClick);
+    },
+    handleStateClick(){
+      let active = document.querySelector('.map-wrapper svg .active')
+      if (active){
+        active.classList.remove('active')
+      }
+      this.$emit('button-event',d3.event.target)
+      d3.event.target.classList.add('active')
     }
   },
   created() {
@@ -255,9 +264,17 @@ export default {
 </script>
 
 <style>
+.map-wrapper svg{
+  margin:auto;
+  display:block;
+}
 .map-wrapper svg path {
-  fill: lightblue;
+  fill: #0099cd;
   stroke: white;
   cursor: pointer;
+}
+
+.map-wrapper svg .active {
+  fill: #de425b;
 }
 </style>

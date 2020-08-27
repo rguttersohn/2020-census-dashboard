@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <h2 v-if="loadingStates !==''">{{loadingStates}}</h2>
-    <Map />
-    <Button @button-event="stateClicked" :states="states" />
+    <Map @button-event="stateClicked" />
     <div class="loading-container">
       <h2>{{infoLoading}}</h2>
     </div>
@@ -25,22 +24,20 @@
 </template>
 
 <script>
-import Button from "@/components/Button.vue";
+import Map from "@/components/Map.vue";
 import StateInfo from "@/components/StateInfo.vue";
 import BarChart from "@/components/BarChart.vue";
 import PieChart from "@/components/PieChart.vue";
 import PlotChart from "@/components/PlotChart.vue";
-import Map from "@/components/Map.vue";
 
 export default {
   name: "App",
   components: {
-    Button,
+    Map,
     StateInfo,
     BarChart,
     PieChart,
-    PlotChart,
-    Map
+    PlotChart
   },
   data() {
     return {
@@ -126,7 +123,7 @@ export default {
     },
     stateClicked(val) {
       this.stateKey = val.dataset.key;
-    },
+    }
   },
   created() {
     this.stateNames();

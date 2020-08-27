@@ -218,7 +218,7 @@ export default {
   width: 1000px;
   margin: 5% auto;
 }
-.dots circle:hover {
+.dots circle:hover, .dots circle:active,.dots circle:focus {
   stroke: #0099cd;
   cursor: pointer;
 }
