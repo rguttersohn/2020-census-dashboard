@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h2 v-if="loadingStates !==''">{{loadingStates}}</h2>
+    <Map />
     <Button @button-event="stateClicked" :states="states" />
     <div class="loading-container">
       <h2>{{infoLoading}}</h2>
@@ -29,6 +30,7 @@ import StateInfo from "@/components/StateInfo.vue";
 import BarChart from "@/components/BarChart.vue";
 import PieChart from "@/components/PieChart.vue";
 import PlotChart from "@/components/PlotChart.vue";
+import Map from "@/components/Map.vue";
 
 export default {
   name: "App",
@@ -37,7 +39,8 @@ export default {
     StateInfo,
     BarChart,
     PieChart,
-    PlotChart
+    PlotChart,
+    Map
   },
   data() {
     return {
