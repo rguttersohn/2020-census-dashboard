@@ -107,7 +107,10 @@ export default {
     },
     removeLabel() {
       d3.select(".pie-chart-labels").remove();
-    }
+    },
+  },
+  mounted(){
+    this.chartFixed();
   },
   watch: {
     currentState() {
@@ -116,7 +119,6 @@ export default {
     currentStateArray() {
       this.createPie();
       this.createArc();
-      this.chartFixed();
       this.drawPie();
       this.animatePie();
       this.removeLabel();
