@@ -243,7 +243,12 @@ export default {
         .data(this.usMap.features)
         .attr("data-state", d => d.properties.NAME)
         .attr("data-key", d => d.properties.GEOID)
-        .on("click", this.handleStateClick);
+        .on("click", this.handleStateClick)
+        .style("visibility", d =>
+          d.properties.NAME === "United States Virgin Islands"
+            ? "hidden"
+            : "visible"
+        );
     },
     handleStateClick() {
       this.$emit("button-event", d3.event.target);
@@ -253,8 +258,10 @@ export default {
       if (active) {
         active.classList.remove("active");
       }
-      let highlightedState = document.querySelector(`.map-wrapper svg path[data-state='${this.currentState[0].NAME}']`)
-      highlightedState.classList.add('active')
+      let highlightedState = document.querySelector(
+        `.map-wrapper svg path[data-state='${this.currentState[0].NAME}']`
+      );
+      highlightedState.classList.add("active");
     }
   },
   created() {
@@ -265,8 +272,8 @@ export default {
       this.createMap();
       this.addStateNames();
     },
-    currentState(){
-      this.addHighlight()
+    currentState() {
+      this.addHighlight();
     }
   }
 };
