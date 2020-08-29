@@ -1,14 +1,19 @@
 <template>
   <div class="map-wrapper">
     <svg />
+    <Tooltip :style="{display:tooltipAttr[0].display,left:tooltipAttr[1].clientX,top:tooltipAttr[2].clientY}" v-html="tooltipAttr[3].text"/>
   </div>
 </template>
 
 <script>
 import * as topojson from "topojson-client";
 import * as d3 from "d3";
+import Tooltip from "@/components/Tooltip.vue";
 
 export default {
+  components: {
+    Tooltip
+  },
   props: {
     currentState: Array
   },
@@ -28,6 +33,12 @@ export default {
         "#abd0d6",
         "#c8e8ea",
         "#e5ffff"
+      ],
+      tooltipAttr: [
+        { display: "none" },
+        { clientX: "" },
+        { clientY: "" },
+        { text: "" }
       ]
     };
   },
@@ -248,7 +259,14 @@ export default {
           d.properties.NAME === "United States Virgin Islands"
             ? "hidden"
             : "visible"
-        );
+        )
+        .on("mouseenter", () => {
+          this.tooltipAttr[0].display = "block";
+          this.tooltipAttr[1].clientX = d3.event.clientX + "px";
+          this.tooltipAttr[2].clientY = d3.event.clientY + "px";
+          this.tooltipAttr[3].text = d3.event.target.dataset.state;
+        })
+        .on("mouseleave", () => (this.tooltipAttr[0].display = "none"));
     },
     handleStateClick() {
       this.$emit("button-event", d3.event.target);
@@ -291,7 +309,7 @@ export default {
 }
 
 .map-wrapper svg path:hover {
-  fill: #de425b;
+  stroke: #de425b;
 }
 
 .map-wrapper svg .active {

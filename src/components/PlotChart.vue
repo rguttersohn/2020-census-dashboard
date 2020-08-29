@@ -5,19 +5,33 @@
     >How {{currentState[0].NAME}} Compares to All States, Washington D.C., and Puerto Rico</h2>
     <p class="date-note">As of {{date}}</p>
     <svg />
+    <Tooltip
+      :style="{display:tooltipAttr[0].display, left:tooltipAttr[1].clientX, top:tooltipAttr[2].clientY}"
+      v-html="tooltipAttr[3].text"
+    />
   </div>
 </template>
 
 <script>
 import * as d3 from "d3";
+import Tooltip from "@/components/Tooltip.vue";
 export default {
+  components: {
+    Tooltip
+  },
   props: ["allStates", "currentState", "date"],
   data() {
     return {
       width: 900,
       height: 300,
       margin: { top: 50, bottom: 50, left: 50, right: 25 },
-      colors: ["lightgray", "#0099cd"]
+      colors: ["lightgray", "#0099cd"],
+      tooltipAttr: [
+        { display: "none" },
+        { clientX: "" },
+        { clientY: "" },
+        { text: "" }
+      ]
     };
   },
   computed: {
@@ -97,7 +111,14 @@ export default {
         .attr("fill", this.colors[0])
         .attr("data-state", d => d[0])
         .attr("data-key", d => d[5])
-        .on("click", this.handleDotClick);
+        .on("click", this.handleDotClick)
+        .on("mouseenter", () => {
+          this.tooltipAttr[0].display = "block";
+          this.tooltipAttr[1].clientX = d3.event.clientX + "px";
+          this.tooltipAttr[2].clientY = d3.event.clientY + "px";
+          this.tooltipAttr[3].text = d3.event.target.dataset.state;
+        })
+        .on("mouseleave", () => this.tooltipAttr[0].display = "none");
     },
     addLabels() {
       const vm = this;
@@ -218,11 +239,14 @@ export default {
   width: 1000px;
   margin: 5% auto;
 }
-.dots circle:hover, .dots circle:active,.dots circle:focus {
+.dots circle:hover,
+.dots circle:active,
+.dots circle:focus {
   stroke: #0099cd;
   cursor: pointer;
 }
-.labels text, .state-labels text{
+.labels text,
+.state-labels text {
   pointer-events: none;
 }
 </style>
