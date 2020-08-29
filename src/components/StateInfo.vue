@@ -6,7 +6,7 @@
       <h3>Rank:</h3>
       <p>
         <span>{{stateRank}}</span> out of 52
-        <br />(including Puerto Rico and Washington D.C.)
+        (including Puerto Rico and Washington D.C.)
       </p>
     </div>
     <p class="date-note" v-if="currentState[0] !== undefined">As of {{date}}</p>
@@ -50,10 +50,7 @@ export default {
 </script>
 
 <style scoped>
-.response-rate-rank {
-  border: none;
-  box-shadow: none;
-}
+
 .response-rate-rank p span {
   font-size: 48px;
   font-weight: bold;

@@ -138,8 +138,9 @@ export default {
 
 <style>
 #app {
-  width: 1200px;
+  width: 95vw;
   margin: auto;
+  display: block;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -152,13 +153,15 @@ export default {
 
 .dashboard-wrapper {
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   justify-content: space-evenly;
-  width: 1000px;
+  width: 93vw;
   margin: auto;
 }
 
-.dashboard-wrapper div {
-  width: 300px;
+.dashboard-wrapper > div {
+  width: 30vw;
   border: 1px solid gainsboro;
   border-radius: 5px;
   box-shadow: 5px 5px 5px rgba(211, 211, 211, 0.378);
@@ -172,4 +175,28 @@ export default {
   font-size: 90%;
   font-style: italic;
 }
+
+@media screen and (max-width: 1000px) {
+  /* .dashboard-wrapper {
+    justify-content: space-between;
+  } */
+  .dashboard-wrapper > div {
+    margin: 2% 0;
+  }
+  .dashboard-wrapper > div:nth-child(3) {
+    width: 93vw;
+  }
+  .dashboard-wrapper >div:nth-child(1),
+  .dashboard-wrapper > div:nth-child(2) {
+    width: 45vw;
+  }
+}
+
+  @media screen and (max-width: 670px) {
+    .dashboard-wrapper > div {
+      width: 93vw!important;
+    }
+  }
+
+
 </style>
