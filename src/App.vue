@@ -157,11 +157,12 @@ export default {
   flex-direction: row;
   justify-content: space-evenly;
   width: 93vw;
+  max-width:1200px;
   margin: auto;
 }
 
 .dashboard-wrapper > div {
-  width: 30vw;
+  width: 30%;
   border: 1px solid gainsboro;
   border-radius: 5px;
   box-shadow: 5px 5px 5px rgba(211, 211, 211, 0.378);

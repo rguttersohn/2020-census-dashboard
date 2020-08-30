@@ -51,9 +51,13 @@ export default {
   },
   methods: {
     drawPlotChart() {
-      d3.select(".plot-chart-wrapper svg")
-        .attr("width", this.width + this.margin.left + this.margin.right)
-        .attr("height", this.height + this.margin.bottom + this.margin.top);
+      d3.select(".plot-chart-wrapper svg").attr(
+        "viewBox",
+        `0 0 ${this.width + this.margin.left + this.margin.right} ${this
+          .height +
+          this.margin.bottom +
+          this.margin.top}`
+      );
 
       //x-axis
       d3.select(".plot-chart-wrapper svg")
@@ -118,7 +122,7 @@ export default {
           this.tooltipAttr[2].clientY = d3.event.clientY + "px";
           this.tooltipAttr[3].text = d3.event.target.dataset.state;
         })
-        .on("mouseleave", () => this.tooltipAttr[0].display = "none");
+        .on("mouseleave", () => (this.tooltipAttr[0].display = "none"));
     },
     addLabels() {
       const vm = this;
@@ -236,7 +240,8 @@ export default {
   border: 1px solid gainsboro;
   border-radius: 5px;
   box-shadow: 5px 5px 5px rgba(211, 211, 211, 0.378);
-  width: 1000px;
+  width: 95vw;
+  max-width: 1000px;
   margin: 5% auto;
 }
 .dots circle:hover,
