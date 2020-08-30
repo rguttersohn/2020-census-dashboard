@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1 class="title">2020 Census Response Rates</h1>
     <h2 v-if="loadingStates !==''">{{loadingStates}}</h2>
     <Map @button-event="stateClicked" :currentState="currentState" />
     <div class="loading-container">
@@ -150,6 +151,13 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+.title {
+  text-align: center;
+  text-transform: uppercase;
+  margin: auto;
+  font-weight:bold;
+  font-family:Helvetica,sans-serif
+}
 
 .dashboard-wrapper {
   display: flex;
@@ -157,7 +165,7 @@ export default {
   flex-direction: row;
   justify-content: space-evenly;
   width: 93vw;
-  max-width:1200px;
+  max-width: 1200px;
   margin: auto;
 }
 
@@ -187,17 +195,15 @@ export default {
   .dashboard-wrapper > div:nth-child(3) {
     width: 93vw;
   }
-  .dashboard-wrapper >div:nth-child(1),
+  .dashboard-wrapper > div:nth-child(1),
   .dashboard-wrapper > div:nth-child(2) {
     width: 45vw;
   }
 }
 
-  @media screen and (max-width: 670px) {
-    .dashboard-wrapper > div {
-      width: 93vw!important;
-    }
+@media screen and (max-width: 670px) {
+  .dashboard-wrapper > div {
+    width: 93vw !important;
   }
-
-
+}
 </style>

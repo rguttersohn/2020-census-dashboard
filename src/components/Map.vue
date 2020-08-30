@@ -1,7 +1,10 @@
 <template>
   <div class="map-wrapper">
     <svg />
-    <Tooltip :style="{display:tooltipAttr[0].display,left:tooltipAttr[1].clientX,top:tooltipAttr[2].clientY}" v-html="tooltipAttr[3].text"/>
+    <Tooltip
+      :style="{display:tooltipAttr[0].display,left:tooltipAttr[1].clientX,top:tooltipAttr[2].clientY}"
+      v-html="tooltipAttr[3].text"
+    />
   </div>
 </template>
 
@@ -221,7 +224,7 @@ export default {
         return albersUsa;
       };
 
-      return albersUsa.scale(1000);
+      return albersUsa.scale(1100);
     },
     createUSMap() {
       let statesURL = fetch("tl_2019_us_state.json");
@@ -239,8 +242,12 @@ export default {
     },
     createMap() {
       d3.select(".map-wrapper svg")
-        .attr("width", this.width + this.margin.left + this.margin.right)
-        .attr("height", this.height)
+        .attr(
+          "viewBox",
+          `0 0 ${this.width + this.margin.left + this.margin.right} ${
+            this.height
+          }`
+        )
         .append("g")
         .attr("class", "state-paths")
         .selectAll("path")
@@ -298,6 +305,11 @@ export default {
 </script>
 
 <style>
+.map-wrapper {
+  width: 95vw;
+  max-width: 900px;
+  margin: auto;
+}
 .map-wrapper svg {
   margin: auto;
   display: block;
