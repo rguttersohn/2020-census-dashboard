@@ -254,4 +254,11 @@ export default {
 .state-labels text {
   pointer-events: none;
 }
+
+@media screen and (max-width: 670px) {
+  .labels text,
+  .state-labels text {
+    font-size:24px!important;
+  }
+}
 </style>

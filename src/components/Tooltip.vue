@@ -24,4 +24,10 @@ export default {
   width: 200px;
   transition: opacity 0.3s ease-in-out;
 }
+
+@media screen and (max-width:670px){
+  .tooltip{
+    display:none!important;
+  }
+}
 </style>
