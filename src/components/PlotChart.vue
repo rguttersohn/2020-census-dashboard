@@ -22,9 +22,9 @@ export default {
   props: ["allStates", "currentState", "date"],
   data() {
     return {
-      width: 900,
+      width: 895,
       height: 300,
-      margin: { top: 50, bottom: 50, left: 50, right: 25 },
+      margin: { top: 50, bottom: 50, left: 50, right: 30 },
       colors: ["lightgray", "#0099cd"],
       tooltipAttr: [
         { display: "none" },
