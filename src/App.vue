@@ -46,7 +46,7 @@ export default {
       currentState: [],
       currentState_2010: [],
       stateKey: "",
-      infoLoading: "Click State Button to see response rate data",
+      infoLoading: "Click state to see its response rate",
       loadingStates: "",
       allStates: [],
       dateRetrieved: ""
