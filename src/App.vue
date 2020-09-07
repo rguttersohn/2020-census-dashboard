@@ -6,7 +6,7 @@
     <div class="loading-container">
       <h2>{{infoLoading}}</h2>
     </div>
-    <Select :allStates="allStates" />
+    <Select :allStates="allStates" @select-event="stateSelected"/>
     <div class="dashboard-wrapper">
       <StateInfo :date="dateRetrieved" :currentState="currentState" :allStates="allStates" />
       <BarChart
@@ -127,6 +127,9 @@ export default {
     },
     stateClicked(val) {
       this.stateKey = val.dataset.key;
+    },
+    stateSelected(val){
+      this.stateKey = val.value
     }
   },
   created() {
