@@ -6,6 +6,7 @@
     <div class="loading-container">
       <h2>{{infoLoading}}</h2>
     </div>
+    <Select :allStates="allStates" />
     <div class="dashboard-wrapper">
       <StateInfo :date="dateRetrieved" :currentState="currentState" :allStates="allStates" />
       <BarChart
@@ -30,6 +31,7 @@ import StateInfo from "@/components/StateInfo.vue";
 import BarChart from "@/components/BarChart.vue";
 import PieChart from "@/components/PieChart.vue";
 import PlotChart from "@/components/PlotChart.vue";
+import Select from '@/components/Select.vue';
 
 export default {
   name: "App",
@@ -38,7 +40,8 @@ export default {
     StateInfo,
     BarChart,
     PieChart,
-    PlotChart
+    PlotChart,
+    Select
   },
   data() {
     return {
