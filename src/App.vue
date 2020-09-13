@@ -128,9 +128,9 @@ export default {
     stateClicked(val) {
       this.stateKey = val.dataset.key;
     },
-    stateSelected(val){
-      this.stateKey = val.value
-    }
+    stateSelected(val) {
+      this.stateKey = val.value;
+    },
   },
   created() {
     this.stateNames();
